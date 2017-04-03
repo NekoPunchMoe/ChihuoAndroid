@@ -9,18 +9,18 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="horizontal"
-    tools:context="com.example.wenxi.restaurantlistactivity.RestaurantListActivity">
+    tools:context="com.example.wenxi.restaurantlistactivity.TestActivity">
 
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="match_parent"
-        android:id="@+id/fragment_list_container"
-        android:visibility="gone">
+        android:id="@+id/fragment_list_container_test">
     </RelativeLayout>
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    android:name="com.google.android.gms.maps.MapFragment"
+    android:id="@+id/restaurant_map_test"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />
 
-    <!--<RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/fragment_grid_container">
-    </RelativeLayout>-->
+
 </LinearLayout>
