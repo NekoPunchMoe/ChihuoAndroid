@@ -2,6 +2,7 @@ package com.example.wenxi.restaurantlistactivity;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,13 +13,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.google.android.gms.maps.model.LatLng;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class RestaurantListFragment extends Fragment {
 
-    ListView listView;
     public RestaurantListFragment() {
         // Required empty public constructor
     }
@@ -45,18 +47,24 @@ public class RestaurantListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_restaurant_list, container, false);
-        listView = (ListView) view.findViewById(R.id.restaurant_list);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                getActivity(),
-                android.R.layout.simple_list_item_1,
-                getRestaurantNames());
+        final ListView listView = (ListView) view.findViewById(R.id.restaurant_list);
 
         // Assign adapter to ListView.
-        listView.setAdapter(adapter);
+        listView.setAdapter(new RestaurantAdapter(getActivity()));
+        // Set a listener to ListView.
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                mCallback.onItemSelected(i);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Restaurant r = (Restaurant) listView.getItemAtPosition(position);
+                //Create explicit intent to start map activity class
+                //Prepare all the data we need to start map activity.
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(RestaurantMapActivity.EXTRA_LATLNG,
+                        new LatLng(r.getLat(), r.getLng()));
+                Intent intent = new Intent(view.getContext(), RestaurantMapActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
         return view;
@@ -72,12 +80,5 @@ public class RestaurantListFragment extends Fragment {
     }
 
     public void onItemSelected(int position) {
-        for (int i = 0; i < listView.getChildCount(); i++){
-            if (position == i) {
-                listView.getChildAt(i).setBackgroundColor(Color.BLUE);
-            } else {
-                listView.getChildAt(i).setBackgroundColor(Color.parseColor("#EEEEEE"));
-            }
-        }
     }
 }

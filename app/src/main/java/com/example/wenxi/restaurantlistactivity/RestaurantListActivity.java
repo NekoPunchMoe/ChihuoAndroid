@@ -24,18 +24,22 @@ public class RestaurantListActivity extends AppCompatActivity implements Restaur
 
 
         //add list view
-        if (isTablet()) {
-            listFragment = new RestaurantListFragment();
-            getSupportFragmentManager().beginTransaction().add(R.id.fragment_list_container, listFragment).commit();
-            relativeLayout.setVisibility(View.VISIBLE);
-        } else {
-            relativeLayout.setVisibility(View.GONE);
-        }
+        //if (isTablet()) {
+            //if (listFragment == null) {
+                listFragment = new RestaurantListFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_list_container, listFragment).commit();
+                relativeLayout.setVisibility(View.VISIBLE);
+            //}
+        //} else {
+        //  relativeLayout.setVisibility(View.GONE);
+        //}
 
 
         //add Gridview
-        gridFragment = new RestaurantGridFragment();
-        getSupportFragmentManager().beginTransaction().add(R.id.fragment_grid_container, gridFragment).commit();
+        /*if (gridFragment == null) {
+            gridFragment = new RestaurantGridFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_grid_container, gridFragment).commit();
+        }*/
     }
 
     private boolean isTablet() {
@@ -93,6 +97,8 @@ public class RestaurantListActivity extends AppCompatActivity implements Restaur
     }
     @Override
     public void onGridItemSelected(int position) {
-        listFragment.onItemSelected(position);
+        if (isTablet()) {
+            listFragment.onItemSelected(position);
+        }
     }
 }
