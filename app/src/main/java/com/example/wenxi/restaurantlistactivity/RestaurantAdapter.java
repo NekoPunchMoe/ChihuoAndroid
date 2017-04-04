@@ -18,9 +18,9 @@ public class RestaurantAdapter extends BaseAdapter {
     Context context;
     List<Restaurant> restaurantData;
 
-    public RestaurantAdapter(Context context) {
+    public RestaurantAdapter(Context context, List<Restaurant> restaurantData) {
         this.context = context;
-        restaurantData = DataService.getRestaurantData();
+        this.restaurantData = restaurantData;
     }
 
     @Override
@@ -47,23 +47,22 @@ public class RestaurantAdapter extends BaseAdapter {
                     parent, false);
         }
 
-        ImageView restaurantPic = (ImageView) convertView.findViewById(R.id.restaurant_thumbnail);
         TextView restaurantName = (TextView) convertView.findViewById(
                 R.id.restaurant_name);
         TextView restaurantAddress = (TextView) convertView.findViewById(
                 R.id.restaurant_address);
         TextView restaurantType = (TextView) convertView.findViewById(
                 R.id.restaurant_type);
-
-        if (position % 2 == 0) {
-            restaurantPic.setImageResource(R.drawable.apple);
-        } else {
-            restaurantPic.setImageResource(R.drawable.profile);
-        }
+        ImageView restaurantThumbnail = (ImageView) convertView.findViewById(
+                R.id.restaurant_thumbnail);
+        ImageView restaurantRating = (ImageView) convertView.findViewById(
+                R.id.restaurant_rating);
         Restaurant r = restaurantData.get(position);
         restaurantName.setText(r.getName());
         restaurantAddress.setText(r.getAddress());
         restaurantType.setText(r.getType());
+        restaurantThumbnail.setImageBitmap(r.getThumbnail());
+        restaurantRating.setImageBitmap(r.getRating());
         return convertView;
     }
 }

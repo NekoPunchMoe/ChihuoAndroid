@@ -45,7 +45,7 @@ public class TestListFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_test_list, container, false);
         final ListView listView = (ListView) view.findViewById(R.id.restaurant_list_test);
-        listView.setAdapter(new RestaurantAdapter(getActivity()));
+        //listView.setAdapter(new RestaurantAdapter(getActivity()));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

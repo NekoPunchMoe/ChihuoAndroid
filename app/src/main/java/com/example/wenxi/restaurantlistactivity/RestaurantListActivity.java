@@ -1,5 +1,6 @@
 package com.example.wenxi.restaurantlistactivity;
 
+import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
@@ -40,6 +41,19 @@ public class RestaurantListActivity extends AppCompatActivity implements Restaur
             gridFragment = new RestaurantGridFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_grid_container, gridFragment).commit();
         }*/
+        new AsyncTask<Void, Void, Void>(){
+            @Override
+            protected Void doInBackground(Void... params) {
+                YelpApi yelp = new YelpApi();
+                yelp.searchForBusinessesByLocation("dinner", "San Francisco, CA", 20);
+                return null;
+            }
+        }.execute();
+        if (findViewById(R.id.fragment_container) != null) {
+            listFragment =  new RestaurantListFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, listFragment).commit();
+        }
     }
 
     private boolean isTablet() {
