@@ -15,20 +15,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".RestaurantListActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDXG8xnUR3URPugvGzs8nAIX21BpLw9aWg" />
 
-        <activity android:name=".RestaurantMapActivity"></activity>
-        <activity android:name=".TestActivity">
+        <activity android:name=".RestaurantMapActivity" />
+        <activity android:name=".TestActivity" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity android:name=".LoginActivity"></activity>
     </application>
 
 </manifest>

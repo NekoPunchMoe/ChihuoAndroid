@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.List;
@@ -46,7 +47,7 @@ public class RestaurantAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.activity_restaurant_list_item,
                     parent, false);
         }
-
+        RatingBar ratingBar = (RatingBar)convertView.findViewById(R.id.restaurant_rating_bar);
         TextView restaurantName = (TextView) convertView.findViewById(
                 R.id.restaurant_name);
         TextView restaurantAddress = (TextView) convertView.findViewById(
@@ -58,6 +59,12 @@ public class RestaurantAdapter extends BaseAdapter {
         ImageView restaurantRating = (ImageView) convertView.findViewById(
                 R.id.restaurant_rating);
         Restaurant r = restaurantData.get(position);
+        if (r.getRating() == null) {
+            restaurantRating.setVisibility(View.GONE);
+            ratingBar.setVisibility(View.VISIBLE);
+            ratingBar.setRating((float)r.getStars());
+        }
+        restaurantType.setText((r.getType() == null) ? r.getCategories().get(0) : r.getType());
         restaurantName.setText(r.getName());
         restaurantAddress.setText(r.getAddress());
         restaurantType.setText(r.getType());

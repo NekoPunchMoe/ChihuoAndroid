@@ -1,5 +1,6 @@
 package com.example.wenxi.restaurantlistactivity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.content.res.Configuration;
@@ -21,26 +22,18 @@ public class RestaurantListActivity extends AppCompatActivity implements Restaur
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_list);
         Log.e("Life cycle test", "We are at onCreate()");
-        relativeLayout = (RelativeLayout)findViewById(R.id.fragment_list_container);
-
-
-        //add list view
-        //if (isTablet()) {
-            //if (listFragment == null) {
-                listFragment = new RestaurantListFragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_list_container, listFragment).commit();
-                relativeLayout.setVisibility(View.VISIBLE);
-            //}
-        //} else {
-        //  relativeLayout.setVisibility(View.GONE);
-        //}
-
-
-        //add Gridview
-        /*if (gridFragment == null) {
-            gridFragment = new RestaurantGridFragment();
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_grid_container, gridFragment).commit();
-        }*/
+        if (findViewById(R.id.fragment_container) != null) {
+            Intent intent = getIntent();
+            if (intent.getExtras() != null) {
+                Log.e("UI", "NOT NULL");
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_list_container, new BackendListFragment()).commit();
+            } else {
+                listFragment =  new RestaurantListFragment();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_list_container, listFragment).commit();
+            }
+        }
         new AsyncTask<Void, Void, Void>(){
             @Override
             protected Void doInBackground(Void... params) {
@@ -49,11 +42,6 @@ public class RestaurantListActivity extends AppCompatActivity implements Restaur
                 return null;
             }
         }.execute();
-        if (findViewById(R.id.fragment_container) != null) {
-            listFragment =  new RestaurantListFragment();
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, listFragment).commit();
-        }
     }
 
     private boolean isTablet() {
